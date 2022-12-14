@@ -41,10 +41,9 @@ jobs:
         with:
           azcliversion: 2.42.0
           inlineScript: |
-            echo ${{ github.event.repository.name }}
             az storage blob upload \
-              --file "build/$file" \
-              --container-name "alpha/fint-kontroll-appbar-pod" \
+              --file "build/static/js/main.js" \
+              --container-name "alpha/${{ github.event.repository.name }}" \
               --account-name stflaiscdn \
               --name main.js \
               --overwrite
