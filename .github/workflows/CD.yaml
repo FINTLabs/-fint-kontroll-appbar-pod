@@ -22,10 +22,10 @@ jobs:
         run: yarn install
 
       - name: Build React App
-      - run: yarn build
+        run: yarn build
 
- #     - name: Copy asset-manifest.json to podlet
-  #      run: cp build/asset-manifest.json podlet/
+      - name: Copy asset-manifest.json to podlet
+        run: cp build/asset-manifest.json podlet/
 
       - name: Azure Login
         uses: azure/login@v1
