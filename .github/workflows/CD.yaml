@@ -10,6 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+      - uses: actions/checkout@v2
+      - name: Build React App
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: npm run build --if-present
+
       - name: Azure Login
         uses: azure/login@v1
         with:
