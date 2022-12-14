@@ -1,10 +1,9 @@
-# File: .github/workflows/workflow.yml
 
 on: [push]
 
 #  workflow_dispatch:
 
-name: AzureCLISample
+name: Podlet build and deploy
 
 jobs:
 
@@ -36,7 +35,7 @@ jobs:
         with:
           creds: ${{ secrets.AZ_CLI_CDN }}
 
-      - name: Azure CLI script
+      - name: Upload assets to CDN
         uses: azure/CLI@v1
         with:
           azcliversion: 2.42.0
@@ -47,3 +46,26 @@ jobs:
               --account-name stflaiscdn \
               --name main.js \
               --overwrite
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha,enable=true,priority=100,prefix=sha-,suffix=,format=short
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v3.1.1
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
