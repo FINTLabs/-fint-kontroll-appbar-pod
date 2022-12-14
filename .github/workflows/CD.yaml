@@ -28,6 +28,9 @@ jobs:
       - name: Copy asset-manifest.json to podlet
         run: cp build/asset-manifest.json podlet/
 
+      - name: Rename main.*.js file
+        run: mv build/static/js/main.*.js build/static/js/main.js
+
       - name: Azure Login
         uses: azure/login@v1
         with:
@@ -38,5 +41,10 @@ jobs:
         with:
           azcliversion: 2.42.0
           inlineScript: |
-            az account show
-            az storage -h
+            echo ${{ github.event.repository.name }}
+            az storage blob upload \
+              --file "build/$file" \
+              --container-name "alpha/fint-kontroll-appbar-pod" \
+              --account-name stflaiscdn \
+              --name main.js \
+              --overwrite
