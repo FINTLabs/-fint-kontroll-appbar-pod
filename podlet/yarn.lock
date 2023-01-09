@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"@fintlabs/fint-podium-react-podlet@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@fintlabs/fint-podium-react-podlet/-/fint-podium-react-podlet-1.0.6.tgz#08e5fc1934287a1d1edf39fb8daa3df2ac1911bc"
+  integrity sha512-xK/cPV3ixgMzBbmFXsPiLKQ1GagTJV2qvmxLqhR8PT0Wc8jQ4Xca7qNQZGqRu3upYR61Lng4e5NL7RZlcqAJLQ==
+  dependencies:
+    "@podium/podlet" "^4.4.68"
+    express "^4.18.2"
+
 "@metrics/client@2.5.0":
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/@metrics/client/-/client-2.5.0.tgz#5196cd885b100ad076863f705e3d7f02333dc82d"

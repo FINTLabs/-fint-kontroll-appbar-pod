@@ -1,33 +1,9 @@
-const express = require("express");
-const podFactory = require("./pod-factory");
-const {
-    IS_DEVELOPMENT,
-    PODLET_CONTAINER_ID,
-    PODLET_PORT,
-    PODLET_BASE_PATH
-} = require("./environment");
+const {podlet} = require("@fintlabs/fint-podium-podlet")
+const packageJson = require("./package.json");
 
-const app = express();
+const PODLET_NAME = process.env.PODLET_NAME || packageJson.name
 
 
-const podlet = podFactory.createPod()
+podlet.runPod(PODLET_NAME)
 
-
-app.use(podlet.middleware());
-
-
-IS_DEVELOPMENT && app.use("/static", express.static("build/static"));
-
-app.get(podlet.content(), (req, res) => {
-    res.status(200).podiumSend(`<div id="${PODLET_CONTAINER_ID}"></div>`);
-});
-
-app.get(podlet.manifest(), (req, res) => {
-    res.status(200).send(podlet);
-});
-
-app.listen(PODLET_PORT, () => {
-    console.log("Podlet  started!")
-    console.log(`${PODLET_BASE_PATH}manifest.json`)
-});
 
