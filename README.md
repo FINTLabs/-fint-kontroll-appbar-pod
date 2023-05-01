@@ -1,3 +1,3 @@
 # FINT Kontroll appbar pod
 
-Podlet for appbar
+AppBar podlet for FINT Kontroll.
