@@ -8,7 +8,7 @@ patches:
         path: "/spec/env/-"
         value:
           name: ENVIRONMENT
-          value: alpha
+          value: beta
     target:
       kind: Application
       name: fint-kontroll-appbar-pod
