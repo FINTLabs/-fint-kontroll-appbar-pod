@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 if [[ -f "build/static/js/main.js" ]]; then
   # Alpha
   az storage blob upload \
