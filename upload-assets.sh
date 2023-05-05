@@ -1,6 +1,7 @@
-#!/bin/zsh
+#!/bin/bash
 
 if [[ -f "build/static/js/main.js" ]]; then
+  echo Uploading javascript files...
   # Alpha
   az storage blob upload \
     --file "build/static/js/main.js" \
@@ -27,6 +28,8 @@ if [[ -f "build/static/js/main.js" ]]; then
 fi
 
 if [[ -f "build/static/js/main.css" ]]; then
+  echo Uploading css files...
+
   # Alpha
   az storage blob upload \
     --file "build/static/css/main.css" \
