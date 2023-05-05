@@ -1,11 +1,9 @@
-#!/bin/bash
-
+#!/usr/bin/bash
 if [[ -f "build/static/js/main.js" ]]; then
-  echo Uploading javascript files...
   # Alpha
   az storage blob upload \
     --file "build/static/js/main.js" \
-    --container-name "alpha/fint-kontroll-appbar-pod" \
+    --container-name "alpha/${{ github.event.repository.name }}" \
     --account-name stflaiscdn \
     --name main.js \
     --overwrite
@@ -13,7 +11,7 @@ if [[ -f "build/static/js/main.js" ]]; then
   # Beta
   az storage blob upload \
     --file "build/static/js/main.js" \
-    --container-name "beta/fint-kontroll-appbar-pod" \
+    --container-name "beta/${{ github.event.repository.name }}" \
     --account-name stflaiscdn \
     --name main.js \
     --overwrite
@@ -21,19 +19,17 @@ if [[ -f "build/static/js/main.js" ]]; then
   # Api
   az storage blob upload \
     --file "build/static/js/main.js" \
-    --container-name "api/fint-kontroll-appbar-pod" \
+    --container-name "api/${{ github.event.repository.name }}" \
     --account-name stflaiscdn \
     --name main.js \
     --overwrite
 fi
 
 if [[ -f "build/static/js/main.css" ]]; then
-  echo Uploading css files...
-
   # Alpha
   az storage blob upload \
     --file "build/static/css/main.css" \
-    --container-name "alpha/fint-kontroll-appbar-pod" \
+    --container-name "alpha/${{ github.event.repository.name }}" \
     --account-name stflaiscdn \
     --name main.css \
     --overwrite
@@ -41,7 +37,7 @@ if [[ -f "build/static/js/main.css" ]]; then
   # Beta
   az storage blob upload \
     --file "build/static/css/main.css" \
-    --container-name "beta/fint-kontroll-appbar-pod" \
+    --container-name "beta/${{ github.event.repository.name }}" \
     --account-name stflaiscdn \
     --name main.css \
     --overwrite
@@ -49,7 +45,7 @@ if [[ -f "build/static/js/main.css" ]]; then
   # Api
   az storage blob upload \
     --file "build/static/css/main.css" \
-    --container-name "api/fint-kontroll-appbar-pod" \
+    --container-name "api/${{ github.event.repository.name }}" \
     --account-name stflaiscdn \
     --name main.css \
     --overwrite
