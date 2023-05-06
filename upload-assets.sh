@@ -25,7 +25,7 @@ if [[ -f "build/static/js/main.js" ]]; then
     --overwrite
 fi
 
-if [[ -f "build/static/js/main.css" ]]; then
+if [[ -f "build/static/css/main.css" ]]; then
   # Alpha
   az storage blob upload \
     --file "build/static/css/main.css" \
