@@ -1,55 +1,50 @@
-import * as React from 'react';
+import React, { useState, useMemo } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import {styled, useTheme} from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import { MessageBus } from '@podium/browser';
-import {useEffect} from "react";
 
-
-const Logo = styled('img')(({theme}) => ({
+const Logo = styled('img')(({ theme }) => ({
     width: 86,
-    marginRight: theme.spacing(4)
+    marginRight: theme.spacing(4),
 }));
-
 
 function Main() {
     const theme = useTheme();
-    const messageBus = new MessageBus();
-    const [username, setUsername] = React.useState('');
+    const [username, setUsername] = useState<string>('');
 
-    useEffect(() => {
-        messageBus.subscribe(
-            'testChannel',
-            'testTopic',
-            (event) => {
-                const user = event.payload;
-                // @ts-ignore
-                setUsername(user);
-            })
+    const messageBus = useMemo(() => {
+        return new MessageBus();
     }, []);
 
+    messageBus.subscribe(
+        'testChannel',
+        'testTopic',
+        (event) => {
+            const user = event.payload;
+            setUsername(user as string);
+        }
+    )
+
     return (
-        <Box sx={{flexGrow: 1}}>
+        <Box sx={{ flexGrow: 1 }}>
             <AppBar position="relative">
                 <Toolbar>
                     <Box sx={{
                         width: 86,
                         marginBottom: theme.spacing(),
-                        marginRight: theme.spacing(4)
+                        marginRight: theme.spacing(4),
                     }}>
-                        <Logo src="https://cdn.flais.io/media/fint-by-vigo-white.svg" alt="logo"
-                             />
+                        <Logo src="https://cdn.flais.io/media/fint-by-vigo-white.svg" alt="logo" />
                     </Box>
-                    <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Kontroll
                     </Typography>
-
                     <Typography variant="body1" sx={{ marginRight: theme.spacing(2) }}>
                         {username}
                     </Typography>
-
                 </Toolbar>
             </AppBar>
         </Box>
@@ -57,6 +52,3 @@ function Main() {
 }
 
 export default Main;
-
-
-
