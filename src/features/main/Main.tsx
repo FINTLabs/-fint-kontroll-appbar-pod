@@ -4,6 +4,9 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import {styled, useTheme} from '@mui/material/styles';
+import { MessageBus } from '@podium/browser';
+import {useEffect} from "react";
+
 
 const Logo = styled('img')(({theme}) => ({
     width: 86,
@@ -13,6 +16,20 @@ const Logo = styled('img')(({theme}) => ({
 
 function Main() {
     const theme = useTheme();
+    const messageBus = new MessageBus();
+    const [username, setUsername] = React.useState('');
+
+    useEffect(() => {
+        messageBus.subscribe(
+            'testChannel',
+            'testTopic',
+            (event) => {
+                const user = event.payload;
+                // @ts-ignore
+                setUsername(user);
+            })
+    }, []);
+
     return (
         <Box sx={{flexGrow: 1}}>
             <AppBar position="relative">
@@ -28,6 +45,11 @@ function Main() {
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                         Kontroll
                     </Typography>
+
+                    <Typography variant="body1" sx={{ marginRight: theme.spacing(2) }}>
+                        {username}
+                    </Typography>
+
                 </Toolbar>
             </AppBar>
         </Box>
