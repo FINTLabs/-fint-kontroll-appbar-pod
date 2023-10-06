@@ -43,7 +43,7 @@ function Main() {
                         Kontroll
                     </Typography>
                     <Typography sx={{ marginRight: theme.spacing(2) }}>
-                        {username}
+                        -{username}-
                     </Typography>
                 </Toolbar>
             </AppBar>
