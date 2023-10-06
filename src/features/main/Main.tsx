@@ -42,7 +42,7 @@ function Main() {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Kontroll
                     </Typography>
-                    <Typography variant="body1" sx={{ marginRight: theme.spacing(2) }}>
+                    <Typography sx={{ marginRight: theme.spacing(2) }}>
                         {username}
                     </Typography>
                 </Toolbar>
