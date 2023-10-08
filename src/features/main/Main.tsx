@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,10 +14,7 @@ const Logo = styled('img')(({ theme }) => ({
 function Main() {
     const theme = useTheme();
     const [username, setUsername] = useState<string>('');
-
-    const messageBus = useMemo(() => {
-        return new MessageBus();
-    }, []);
+    const messageBus = new MessageBus();
 
     messageBus.subscribe(
         'testChannel',
@@ -43,7 +40,7 @@ function Main() {
                         Kontroll
                     </Typography>
                     <Typography sx={{ marginRight: theme.spacing(2) }}>
-                        - {username} -
+                        username here {username}
                     </Typography>
                 </Toolbar>
             </AppBar>
