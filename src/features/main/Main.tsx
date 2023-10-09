@@ -1,10 +1,9 @@
-import React, { useState} from 'react';
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { styled, useTheme } from '@mui/material/styles';
-import { MessageBus } from '@podium/browser';
 
 const Logo = styled('img')(({ theme }) => ({
     width: 86,
@@ -13,17 +12,6 @@ const Logo = styled('img')(({ theme }) => ({
 
 function Main() {
     const theme = useTheme();
-    const [username, setUsername] = useState<string>('');
-    const messageBus = new MessageBus();
-
-    messageBus.subscribe(
-        'testChannel',
-        'testTopic',
-        (event) => {
-            const user = event.payload;
-            setUsername(user as string);
-        }
-    )
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -38,9 +26,6 @@ function Main() {
                     </Box>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Kontroll
-                    </Typography>
-                    <Typography sx={{ marginRight: theme.spacing(2) }}>
-                        username here {username}
                     </Typography>
                 </Toolbar>
             </AppBar>
