@@ -14,6 +14,8 @@ env:
 jobs:
   build-and-deploy-to-cdn:
     runs-on: ubuntu-latest
+    outputs:
+      image-tag: ${{ steps.meta.outputs.tags }}
     steps:
 
       - uses: actions/checkout@v3.3.0
@@ -48,29 +50,6 @@ jobs:
             chmod +x $GITHUB_WORKSPACE/upload-assets.sh
             $GITHUB_WORKSPACE/upload-assets.sh
             
-
-      
-
-
-  deploy-to-aks:
-    name: deploy for ${{ matrix.org }} to ${{ matrix.cluster }}
-    runs-on: ubuntu-latest
-   # needs: build-and-deploy-to-cdn
-    permissions:
-      contents: read
-      packages: write
-    strategy:
-      matrix:
-        include:
-          - org: fintlabs-no
-            cluster: aks-beta-fint-2021-11-23
-          - org: ofk-no
-            cluster: aks-api-fint-2022-02-08
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
@@ -93,6 +72,29 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      
+
+
+  deploy-to-aks:
+    name: deploy for ${{ matrix.org }} to ${{ matrix.cluster }}
+    runs-on: ubuntu-latest
+    needs: build-and-deploy-to-cdn
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      matrix:
+        include:
+          - org: fintlabs-no
+            cluster: aks-beta-fint-2021-11-23
+          - org: ofk-no
+            cluster: aks-api-fint-2022-02-08
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+
 
       - name: Get environment
         uses: actions/github-script@v6
@@ -136,5 +138,5 @@ jobs:
         with:
           action: deploy
           manifests: ${{ steps.bake.outputs.manifestsBundle }}
-          images: ${{ steps.meta.outputs.tags }}
+          images: ${{ needs.build-and-deploy-to-cdn.outputs.image-tag }}
           namespace: ${{ matrix.org }}
