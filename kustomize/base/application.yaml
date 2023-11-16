@@ -5,7 +5,7 @@ metadata:
 spec:
   port: 7100
   orgId: fintlabs.no
-  image: ghcr.io/fintlabs/fint-kontroll-appbar-pod
+  image: ghcr.io/fintlabs/fint-kontroll-appbar-pod:sha-0000000
   prometheus:
     enabled: true
     port: "7100"
