@@ -28,6 +28,7 @@ function Main() {
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                         Kontroll
                     </Typography>
+                    asdfkajsdlfkjl
                     <MeInfo/>
                 </Toolbar>
 

@@ -29,6 +29,7 @@ function MeInfo() {
 
     return (
         <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            asdlkjlkjelkjdlkjlkjlkjl
             <Box>
                 <Typography sx={{m: 2}}>
                     <Icon fontSize={"small"} sx={{color: "white", mr: 1}}><ApartmentOutlined/></Icon>
