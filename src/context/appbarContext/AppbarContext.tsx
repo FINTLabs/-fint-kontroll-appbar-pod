@@ -18,7 +18,7 @@ const AppbarProvider = ({children, basePath}: Props) => {
         if (basePath) {
             AppbarRepository.getMeInfo(basePath)
                 .then(response => {
-                        // console.log("Me info: ", response.data);
+                         console.log("Me info: ", response.data);
                         setMe(response.data)
                     }
                 )

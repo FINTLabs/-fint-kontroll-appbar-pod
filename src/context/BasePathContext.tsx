@@ -14,14 +14,14 @@ interface BasePathProviderProps {
 }
 
 export const BasePathProvider: React.FC<BasePathProviderProps> = ({children}) => {
-    const [basePath, setBasePath] = useState<string>('');
+    const [basePath, setBasePath] = useState<string>('/');
 
     useEffect(() => {
         const getBasePath = () => {
             axios.get('api/layout/configuration')
                 .then(response => {
                     setBasePath(response.data.basePath);
-                    console.log("basePath in context", response.data.basePath);
+                    console.log("basePath in Basecontext", response.data.basePath);
                 })
                 .catch((err) => {
                     console.error(err);
