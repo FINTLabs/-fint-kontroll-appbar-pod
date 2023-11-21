@@ -1,13 +1,31 @@
-import React, {useContext} from 'react';
+import React, {useEffect, useState} from 'react';
 import Typography from '@mui/material/Typography';
 import Box from "@mui/material/Box";
-import {AppbarContext} from "../../context/appbarContext";
 import {ApartmentOutlined, PersonOutlined} from "@mui/icons-material";
 import {Icon} from "@mui/material";
+import axios from "axios";
+import {IMeInfo} from "../../context/appbarContext/types";
 
 function MeInfo() {
 
-    const {me} = useContext(AppbarContext);
+    const [me, setMe] = useState<IMeInfo | null>(null);
+
+
+    // const {me} = useContext(AppbarContext);
+
+    useEffect(() => {
+
+        axios.get("api/users/me")
+            .then(response => {
+                    console.log("Me info: ", response.data);
+                    setMe(response.data)
+                }
+            )
+            .catch((err) => {
+                console.error(err);
+            })
+    }, []);
+
 
     return (
         <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>

@@ -5,10 +5,3 @@ export interface IMeInfo {
     "mail": string;
 }
 
-export type AppbarContextState = {
-    me: IMeInfo | null;
-};
-
-export const contextDefaultValues: AppbarContextState = {
-    me: null,
-};

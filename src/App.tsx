@@ -1,7 +1,6 @@
 import React from 'react';
 import {createTheme, ThemeProvider} from "@mui/material";
 import MainContainer from "./features/main/MainContainer";
-import AppbarProvider from "./context/appbarContext";
 
 const theme = createTheme({
     palette: {
@@ -28,9 +27,7 @@ function App() {
 
     return (
         <ThemeProvider theme={theme}>
-            <AppbarProvider>
                 <MainContainer/>
-            </AppbarProvider>
         </ThemeProvider>
     );
 }
