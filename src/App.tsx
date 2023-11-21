@@ -1,7 +1,7 @@
 import React from 'react';
-import Main from "./features/main/Main";
 import {createTheme, ThemeProvider} from "@mui/material";
-import AppbarProvider from "./context/appbarContext";
+import {BasePathProvider} from "./context/BasePathContext";
+import MainContainer from "./features/main/MainContainer";
 
 const theme = createTheme({
     palette: {
@@ -27,9 +27,9 @@ const theme = createTheme({
 function App() {
     return (
         <ThemeProvider theme={theme}>
-            <AppbarProvider>
-                <Main/>
-            </AppbarProvider>
+            <BasePathProvider>
+                <MainContainer/>
+            </BasePathProvider>
         </ThemeProvider>
     );
 }

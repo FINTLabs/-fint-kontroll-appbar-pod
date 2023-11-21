@@ -8,21 +8,24 @@ export const AppbarContext = createContext<AppbarContextState>(
 
 type Props = {
     children: ReactNode[] | ReactNode;
+    basePath: string;
 };
 
-const AppbarProvider = ({children}: Props) => {
+const AppbarProvider = ({children, basePath}: Props) => {
     const [me, setMe] = useState<IMeInfo | null>(contextDefaultValues.me);
 
     const getMeInfo = () => {
-        AppbarRepository.getMeInfo()
-            .then(response => {
-                    console.log("Me info: ", response.data);
-                    setMe(response.data)
-                }
-            )
-            .catch((err) => {
-                console.error(err);
-            })
+        if (basePath) {
+            AppbarRepository.getMeInfo(basePath)
+                .then(response => {
+                       // console.log("Me info: ", response.data);
+                        setMe(response.data)
+                    }
+                )
+                .catch((err) => {
+                    console.error(err);
+                })
+        }
     }
 
     useEffect(() => {
