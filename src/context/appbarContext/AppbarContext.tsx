@@ -14,11 +14,11 @@ type Props = {
 const AppbarProvider = ({children, basePath}: Props) => {
     const [me, setMe] = useState<IMeInfo | null>(contextDefaultValues.me);
 
-    const getMeInfo = () => {
+    useEffect(() => {
         if (basePath) {
             AppbarRepository.getMeInfo(basePath)
                 .then(response => {
-                       // console.log("Me info: ", response.data);
+                        // console.log("Me info: ", response.data);
                         setMe(response.data)
                     }
                 )
@@ -26,17 +26,12 @@ const AppbarProvider = ({children, basePath}: Props) => {
                     console.error(err);
                 })
         }
-    }
-
-    useEffect(() => {
-        getMeInfo()
-    });
+    }, [basePath]);
 
     return (
         <AppbarContext.Provider
             value={{
-                me,
-                getMeInfo,
+                me
             }}
         >
             {children}

@@ -7,11 +7,8 @@ export interface IMeInfo {
 
 export type AppbarContextState = {
     me: IMeInfo | null;
-    getMeInfo: () => void;
 };
 
 export const contextDefaultValues: AppbarContextState = {
     me: null,
-    getMeInfo: () => {
-    },
 };
