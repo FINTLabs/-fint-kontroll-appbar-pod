@@ -1,6 +1,5 @@
 import React from 'react';
 import {createTheme, ThemeProvider} from "@mui/material";
-import {BasePathProvider, useBasePath} from "./context/BasePathContext";
 import MainContainer from "./features/main/MainContainer";
 import AppbarProvider from "./context/appbarContext";
 
@@ -26,14 +25,12 @@ const theme = createTheme({
 });
 
 function App() {
-    const basePath = useBasePath() || '/';
+
     return (
         <ThemeProvider theme={theme}>
-            <BasePathProvider>
-                <AppbarProvider basePath={basePath}>
-                    <MainContainer/>
-                </AppbarProvider>
-            </BasePathProvider>
+            <AppbarProvider>
+                <MainContainer/>
+            </AppbarProvider>
         </ThemeProvider>
     );
 }
