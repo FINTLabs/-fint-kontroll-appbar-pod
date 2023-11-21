@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {BasePathProvider} from "./context/BasePathContext";
 
 const root = ReactDOM.createRoot(
     document.getElementById('fint-kontroll-appbar-pod') as HTMLElement
@@ -10,9 +9,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
     <React.StrictMode>
-        <BasePathProvider>
-            <App/>
-        </BasePathProvider>
+        <App/>
     </React.StrictMode>
 );
 
