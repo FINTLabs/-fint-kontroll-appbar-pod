@@ -30,7 +30,7 @@ const AppbarProvider = ({children, basePath}: Props) => {
 
     useEffect(() => {
         getMeInfo()
-    }, []);
+    });
 
     return (
         <AppbarContext.Provider
