@@ -30,7 +30,6 @@ function Main() {
                     </Typography>
                     <MeInfo/>
                 </Toolbar>
-
             </AppBar>
         </Box>
     );

@@ -4,20 +4,24 @@ import Box from "@mui/material/Box";
 import {ApartmentOutlined, PersonOutlined} from "@mui/icons-material";
 import {Icon} from "@mui/material";
 import axios from "axios";
-import {IMeInfo} from "../../context/appbarContext/types";
 
 function MeInfo() {
 
+    interface IMeInfo {
+        "firstName": string;
+        "lastName": string;
+        "organisationId": string;
+        "mail": string;
+    }
+
     const [me, setMe] = useState<IMeInfo | null>(null);
 
-
-    // const {me} = useContext(AppbarContext);
 
     useEffect(() => {
 
         axios.get("api/users/me")
             .then(response => {
-                    console.log("Me info: ", response.data);
+                   // console.log("Me info: ", response.data);
                     setMe(response.data)
                 }
             )
@@ -43,7 +47,6 @@ function MeInfo() {
             </Box>
 
         </Box>
-
     );
 }
 
