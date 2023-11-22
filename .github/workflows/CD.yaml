@@ -2,14 +2,21 @@ name: Podlet build and deploy
 
 on:
   push:
-    branches:
-      - main
+    branches: ['main']
 
 #  workflow_dispatch:
+
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  ALPHA_CLUSTER_NAME: aks-alpha-fint-2021-11-18
+  ALPHA_CLUSTER_RESOURCE_GROUP: rg-aks-alpha
+  BETA_CLUSTER_NAME: aks-beta-fint-2021-11-23
+  BETA_CLUSTER_RESOURCE_GROUP: rg-aks-beta
+  API_CLUSTER_NAME: aks-api-fint-2022-02-08
+  API_CLUSTER_RESOURCE_GROUP: rg-aks-api
+
 
 jobs:
   build-and-deploy-to-cdn:
@@ -36,6 +43,8 @@ jobs:
 
       - name: Rename main.*.js file
         run: mv build/static/js/main.*.js build/static/js/main.js
+      - name: Rename main.*.css file
+        run: mv build/static/css/main.*.css build/static/css/main.css
 
       - name: Azure Login
         uses: azure/login@v1
@@ -48,10 +57,10 @@ jobs:
           azcliversion: 2.42.0
           inlineScript: |
             chmod +x $GITHUB_WORKSPACE/upload-assets.sh
-            $GITHUB_WORKSPACE/upload-assets.sh
-            
+            $GITHUB_WORKSPACE/upload-assets.sh ${{ github.event.repository.name }}
+
       - name: Log in to the Container registry
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        uses: docker/login-action@v2
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -59,21 +68,19 @@ jobs:
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=sha,enable=true,priority=100,prefix=sha-,suffix=,format=short
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v3.1.1
+        uses: docker/build-push-action@v5.0.0
         with:
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-      
-
 
   deploy-to-aks:
     name: deploy for ${{ matrix.org }} to ${{ matrix.cluster }}
@@ -93,8 +100,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-
 
       - name: Get environment
         uses: actions/github-script@v6
