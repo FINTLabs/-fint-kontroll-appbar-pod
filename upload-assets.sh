@@ -3,7 +3,7 @@ if [[ -f "build/static/js/main.js" ]]; then
   # Alpha
   az storage blob upload \
     --file "build/static/js/main.js" \
-    --container-name "alpha/${{ github.event.repository.name }}" \
+    --container-name "alpha/$1" \
     --account-name stflaiscdn \
     --name main.js \
     --overwrite
@@ -11,7 +11,7 @@ if [[ -f "build/static/js/main.js" ]]; then
   # Beta
   az storage blob upload \
     --file "build/static/js/main.js" \
-    --container-name "beta/${{ github.event.repository.name }}" \
+    --container-name "beta/$1" \
     --account-name stflaiscdn \
     --name main.js \
     --overwrite
@@ -19,7 +19,7 @@ if [[ -f "build/static/js/main.js" ]]; then
   # Api
   az storage blob upload \
     --file "build/static/js/main.js" \
-    --container-name "api/${{ github.event.repository.name }}" \
+    --container-name "api/$1" \
     --account-name stflaiscdn \
     --name main.js \
     --overwrite
@@ -29,7 +29,7 @@ if [[ -f "build/static/css/main.css" ]]; then
   # Alpha
   az storage blob upload \
     --file "build/static/css/main.css" \
-    --container-name "alpha/${{ github.event.repository.name }}" \
+    --container-name "alpha/$1" \
     --account-name stflaiscdn \
     --name main.css \
     --overwrite
@@ -37,7 +37,7 @@ if [[ -f "build/static/css/main.css" ]]; then
   # Beta
   az storage blob upload \
     --file "build/static/css/main.css" \
-    --container-name "beta/${{ github.event.repository.name }}" \
+    --container-name "beta/$1" \
     --account-name stflaiscdn \
     --name main.css \
     --overwrite
@@ -45,7 +45,7 @@ if [[ -f "build/static/css/main.css" ]]; then
   # Api
   az storage blob upload \
     --file "build/static/css/main.css" \
-    --container-name "api/${{ github.event.repository.name }}" \
+    --container-name "api/$1" \
     --account-name stflaiscdn \
     --name main.css \
     --overwrite
