@@ -32,13 +32,13 @@ function MeInfo() {
             <Box>
                 <Typography sx={{m: 2}}>
                     <Icon fontSize={"small"} sx={{color: "white", mr: 1}}><ApartmentOutlined/></Icon>
-                    {me?.organisationId} org
+                    {me?.organisationId}
                 </Typography>
             </Box>
             <Box>
                 <Typography sx={{m: 2}}>
                     <Icon fontSize={"small"} sx={{color: "white", mr: 1}}><PersonOutlined/></Icon>
-                    {me?.firstName} {me?.lastName} navn
+                    {me?.firstName} {me?.lastName}
                 </Typography>
             </Box>
 
